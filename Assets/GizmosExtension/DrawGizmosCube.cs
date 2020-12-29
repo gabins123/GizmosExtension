@@ -10,19 +10,15 @@ public enum FrameMode
     ShadedFrame,
     WireFrame
 }
-
+[AddComponentMenu("GizmosExtention/CubeGizmos", 1)]
 public class DrawGizmosCube : MonoBehaviour
 {
 #if UNITY_EDITOR
     public DrawGizmosType type;
     public FrameMode mode;
-    public Color color;
-    [Min(0)]
-    public float height;
-    [Min(0)]
-    public float width;
-    [Min(0)]
-    public float depth;
+    public Color color = Color.green;
+    public Vector3 center;
+    public Vector3 size = Vector3.one;
 
     private void OnDrawGizmos()
     {
@@ -30,10 +26,10 @@ public class DrawGizmosCube : MonoBehaviour
         {
             if(mode == FrameMode.WireFrame)
             {
-                transform.DrawWireFrameCube(width,height,depth,color);
+                transform.DrawWireFrameCube(size,center, color);
                 return;
             }
-            transform.DrawShadedFrameCube(width, height, depth, color);
+            transform.DrawShadedFrameCube(size, center, color);
         }
     }
     private void OnDrawGizmosSelected()
@@ -42,10 +38,10 @@ public class DrawGizmosCube : MonoBehaviour
         {
             if (mode == FrameMode.WireFrame)
             {
-                transform.DrawWireFrameCube(width, height, depth, color);
+                transform.DrawWireFrameCube(size, center, color);
                 return;
             }
-            transform.DrawShadedFrameCube(width, height, depth, color);
+            transform.DrawShadedFrameCube(size, center, color);
         }
 
     }

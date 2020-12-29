@@ -11,22 +11,22 @@ public enum DrawGizmosType
 public static class GizmosExtension
 {
     //ex:  transform.DrawWirelessCube(width,height,depth,color);
-    public static void DrawWireFrameCube(this Transform trans, float width, float height, float depth, Color color = default)
+    public static void DrawWireFrameCube(this Transform trans,Vector3 size, Vector3 center,Color color = default)
     {
-        DrawWireFrameCube(trans.position, trans.rotation, width, height, depth, color);
+        DrawWireFrameCube(trans.position, trans.rotation, trans.lossyScale, size,center, color);
     }
     //ex: GizmosExtension.DrawWirelessCube(transform.position,transform.rotation, width, height, depth, color);
-    public static void DrawWireFrameCube(Vector3 position, Quaternion rotation,float width, float height, float depth, Color color = default)
+    public static void DrawWireFrameCube(Vector3 position, Quaternion rotation, Vector3 scale,Vector3 size, Vector3 center, Color color = default)
     {
-        Matrix4x4 cubeTransform = Matrix4x4.TRS(position, rotation, new Vector3(width,height,depth));
+        Matrix4x4 cubeTransform = Matrix4x4.TRS(position + center, rotation, new Vector3(scale.x * size.x, scale.y * size.y, scale.z * size.z));
         Matrix4x4 oldGizmosMatrix = Gizmos.matrix;
 
         Gizmos.matrix *= cubeTransform;
         Gizmos.color = color;
         Vector3 topLeftFrontCorner = new Vector3(-0.5f, 0.5f, 0.5f);
         Vector3 topRightFrontCorner = new Vector3(0.5f, 0.5f, 0.5f);
-        Vector3 bottomLeftFrontCorner = new Vector3(-0.5f, -0.5f, +0.5f);
-        Vector3 bottomRightFrontCorner = new Vector3(+0.5f, -0.5f, +0.5f);
+        Vector3 bottomLeftFrontCorner = new Vector3(-0.5f, -0.5f, 0.5f);
+        Vector3 bottomRightFrontCorner = new Vector3(0.5f, -0.5f, 0.5f);
         Vector3 topLeftBehindCorner = new Vector3(-0.5f, 0.5f, -0.5f);
         Vector3 topRightBehindCorner = new Vector3(0.5f, 0.5f, -0.5f);
         Vector3 bottomLeftBehindCorner = new Vector3(-0.5f, -0.5f, -0.5f);
@@ -49,18 +49,18 @@ public static class GizmosExtension
 
         Gizmos.matrix = oldGizmosMatrix;
     }
-    public static void DrawShadedFrameCube(this Transform trans, float width, float height, float depth, Color color = default)
+    public static void DrawShadedFrameCube(this Transform trans, Vector3 size, Vector3 center, Color color = default)
     {
-        DrawShadedFrameCube(trans.position, trans.rotation, width, height, depth, color);
+        DrawShadedFrameCube(trans.position, trans.rotation, trans.lossyScale, size, center,color);
     }
-    public static void DrawShadedFrameCube(Vector3 position, Quaternion rotation, float width, float height, float depth, Color color = default)
+    public static void DrawShadedFrameCube(Vector3 position, Quaternion rotation, Vector3 scale, Vector3 size, Vector3 center, Color color = default)
     {
-        Matrix4x4 cubeTransform = Matrix4x4.TRS(position, rotation, new Vector3(width, height, depth));
+        Matrix4x4 cubeTransform = Matrix4x4.TRS(position + center, rotation, scale);
         Matrix4x4 oldGizmosMatrix = Gizmos.matrix;
 
         Gizmos.matrix *= cubeTransform;
         Gizmos.color = color;
-        Gizmos.DrawCube(Vector3.zero, Vector3.one);
+        Gizmos.DrawCube(Vector3.zero, size);
         Gizmos.matrix = oldGizmosMatrix;
     }
 }
