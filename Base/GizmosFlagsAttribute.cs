@@ -12,7 +12,7 @@ public class GizmosFlagsAttributeDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect _position, SerializedProperty _property, GUIContent _label)
     {
-        SerializedObject layers = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("Assets/GizmosExtension/GizmosManager.asset")[0]);
+        SerializedObject layers = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("Assets/GizmosExtension/Base/GizmosManager.asset")[0]);
         SerializedProperty layersArray = layers.FindProperty("layers");
         string[] layerString =new string[layersArray.arraySize];
         for (int i = 0; i < layerString.Length; i++)
@@ -31,7 +31,7 @@ public class GizmosEnumAttributeDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect _position, SerializedProperty _property, GUIContent _label)
     {
-        SerializedObject layers = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("Assets/GizmosExtension/GizmosManager.asset")[0]);
+        SerializedObject layers = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("Assets/GizmosExtension/Base/GizmosManager.asset")[0]);
         SerializedProperty layersArray = layers.FindProperty("layers");
         string[] layerString = new string[layersArray.arraySize];
         for (int i = 0; i < layerString.Length; i++)

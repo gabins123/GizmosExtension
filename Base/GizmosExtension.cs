@@ -63,4 +63,12 @@ public static class GizmosExtension
         Gizmos.DrawCube(Vector3.zero, size);
         Gizmos.matrix = oldGizmosMatrix;
     }
+    public static void DrawMesh(this Transform trans,Mesh mesh,Vector3 center)
+    {
+        DrawMesh(trans.position, trans.rotation, trans.lossyScale, mesh, center);
+    }
+    public static void DrawMesh(Vector3 position, Quaternion rotation, Vector3 scale,Mesh mesh, Vector3 center)
+    {
+        Gizmos.DrawMesh(mesh, position+ center, rotation, scale);
+    }
 }
