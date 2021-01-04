@@ -44,4 +44,4 @@ MonoBehaviour:
   - 29
   - 30
   - 31
-  ActivatingLayers: 1
+  activatingLayers: -1

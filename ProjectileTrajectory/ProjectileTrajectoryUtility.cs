@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Ballistics
+public static class ProjectileTrajectoryUtility
 {
     /// <summary>
     /// Checks the ballistic path for collisions.
@@ -77,11 +77,33 @@ public static class Ballistics
         }
         return posArray;
     }
+    public static List<Vector3> CalculateBouncePosArray(Vector3 startPos, Vector3 velocity, float timeTravel, float timeStep,float bounciness,int bounceTime)
+    {
+        int resolution = Mathf.FloorToInt(timeTravel / timeStep);
+        List<Vector3> posArray = new List<Vector3>();
+        for (int i = 0; i <= resolution; i++)
+        {
+            posArray.Add(CalculatePos(startPos, velocity, timeStep * i));
+        }
+        for (int i = 1; i < bounceTime; i++)
+        {
+            var dir = ((posArray[posArray.Count - 1] - posArray[posArray.Count - 2]).normalized+Vector3.up)/2f * velocity.magnitude * bounciness;
+            for (int j = 0; j <= resolution; j++)
+            {
+                posArray.Add(CalculatePos(posArray[posArray.Count - 1], dir, timeStep * j));
+            }
+        }
+        return posArray;
+    }
     private static Vector3 CalculatePos(Vector3 startPos, Vector3 velocity, float t)
     {
         float x = velocity.x * t;
         float y = velocity.y * t - 9.81f * t * t / 2;
         float z = velocity.z * t;
         return new Vector3(x, y, z) + startPos;
+    }
+    //private static Vector3 CalculateEndPos(Vector3 startPos,Vector3 velocity,float timeTravel)
+    {
+
     }
 }
