@@ -39,17 +39,7 @@ public class GizmosEnumAttributeDrawer : PropertyDrawer
             layerString[i] = layersArray.GetArrayElementAtIndex(i).stringValue;
         }
         EditorGUI.LabelField(new Rect(_position.position.x, _position.position.y, _position.width/2-5, _position.height),_property.displayName);
-        _property.intValue = 1 << EditorGUI.Popup(new Rect(_position.position.x + _position.width/2, _position.position.y, _position.width / 2 + 5, _position.height), ReverseBitShift(_property.intValue), layerString);
+        _property.intValue = 1 << EditorGUI.Popup(new Rect(_position.position.x + _position.width/2, _position.position.y, _position.width / 2 + 5, _position.height), GizmosExtension.ReverseBitShift(_property.intValue), layerString);
     }
-    public int ReverseBitShift(int value)
-    {
-        int rev = 0;
-
-        while (value >> 1 > 0)
-        {
-            value >>= 1;
-            rev++;
-        }
-        return rev;
-    }
+    
 }

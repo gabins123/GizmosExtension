@@ -71,4 +71,15 @@ public static class GizmosExtension
     {
         Gizmos.DrawMesh(mesh, position+ center, rotation, scale);
     }
+    public static int ReverseBitShift(int value)
+    {
+        int rev = 0;
+
+        while (value >> 1 > 0)
+        {
+            value >>= 1;
+            rev++;
+        }
+        return rev;
+    }
 }
