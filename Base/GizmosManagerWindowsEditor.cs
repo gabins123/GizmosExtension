@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
-
+#if UNITY_EDITOR
 public class GizmosManagerWindowsEditor : EditorWindow
 {
     private bool[] values = new bool[31];
@@ -52,3 +52,4 @@ public class GizmosLayerManagerEditor : Editor
     {
     }
 }
+#endif
