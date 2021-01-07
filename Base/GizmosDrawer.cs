@@ -11,12 +11,12 @@ public enum FrameMode
 }
 public abstract class GizmosDrawer : MonoBehaviour
 {
-#if UNITY_EDITOR
     [GizmosEnum]
     [Header("Gizmos Drawer")]
     public int gizmosLayer;
     public DrawGizmosType type;
     protected abstract void OnDraw();
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (type == DrawGizmosType.Always)
