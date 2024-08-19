@@ -41,6 +41,6 @@ public abstract class GizmosDrawer : MonoBehaviour
 #endif
     public bool IsActivating(int layer)
     {
-        return (new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("Assets/GizmosExtension/Base/GizmosManager.asset")[0]).FindProperty("activatingLayers").intValue &= layer) != 0;
+        return (GizmosLayerManager.instance.activatingLayers &= layer) != 0;
     }
 }

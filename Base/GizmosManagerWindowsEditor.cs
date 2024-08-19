@@ -11,6 +11,7 @@ public class GizmosManagerWindowsEditor : EditorWindow
     private SerializedProperty activatingLayerField;
     private Object target;
     private SerializedObject objectTarget;
+    private Vector2 _scrollerPosition;
 
     private void OnEnable()
     {
@@ -24,7 +25,11 @@ public class GizmosManagerWindowsEditor : EditorWindow
     }
     private void OnGUI()
     {
-        target = AssetDatabase.LoadAllAssetsAtPath("Assets/GizmosExtension/Base/GizmosManager.asset")[0];
+        //GUILayout begin scroll view
+        _scrollerPosition = EditorGUILayout.BeginScrollView(_scrollerPosition);
+        
+        
+        target = GizmosLayerManager.instance;
         objectTarget = new SerializedObject(target);
         var layerValue = layerField.GetValue(target) as string[];
         activatingLayerField = objectTarget.FindProperty("activatingLayers");
@@ -39,10 +44,11 @@ public class GizmosManagerWindowsEditor : EditorWindow
             EditorGUILayout.EndHorizontal();
         }
         Undo.RecordObject(target, "Change gizmos layer manager");
-        EditorGUILayout.PropertyField(activatingLayerField);
         layerField.SetValue(target, layerValue);
+        EditorGUILayout.PropertyField(activatingLayerField);
         objectTarget.ApplyModifiedProperties();
         EditorUtility.SetDirty(target);
+        EditorGUILayout.EndScrollView();
     }
 }
 [CustomEditor(typeof(GizmosLayerManager))]
